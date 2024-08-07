@@ -5,17 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/c7ac081a39.js" crossorigin="anonymous"></script>
     <title>Weather App</title>
 </head>
 
 <body>
     <div class="container">
-        <div class="location-container">
-            <img src="./assets/icons/location-2955.svg" alt="location-icon" class="location-icon">
-            <h2 class="location-name" id="locationName">London, ON</h2>
+        <div class="top-icons">
+            <i class="fa-solid fa-location-crosshairs"></i>
+            <div class="search-container" id="searchContainer">
+                <input class="search-bar" id="searchBar"  type="text" placeholder="Enter the location">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            </div>
         </div>
-        <div class="">
-            <img src="./assets/icons/weather-icon-example.svg" alt="weather-image" id="weatherImage" class="weather-image">
+        <div class="location-and-img-container">
+            <div class="location-container">
+                <h2 class="location-name" id="locationName">London, ON</h2>
+                <i class="fa-regular fa-bookmark"></i>
+                <i class="fa-solid fa-bookmark" style="display: none;"></i>
+
+            </div>
+            <div class="image-container">
+                <img src="./assets/icons/weather-icon-example.svg" alt="weather-image" id="weatherImage"
+                    class="weather-image">
+            </div>
         </div>
         <div class="temperature-container">
             <h2 class="temperature">25c</h2>
@@ -45,10 +58,18 @@
         </div>
     </div>
     <nav class="navigation-bar">
-        <a href="./"> <div class="nav-item"><img src="./assets/icons/home-icon.svg" alt="home" class="nav-icon"></div></a>
-        <a href="./"> <div class="nav-item"><img src="./assets/icons/forecast-icon.svg" alt="home" class="nav-icon"></div></a>
-        <a href="./"> <div class="nav-item"><img src="./assets/icons/bookmark-icon.svg" alt="home" class="nav-icon"></div></a>
+        <a href="./">
+            <div class="nav-item"><i class="fa-solid fa-house-chimney"></i></div>
+        </a>
+        <a href="./pages/forecast.html">
+            <div class="nav-item"><i class="fa-solid fa-square-poll-horizontal"></i></div>
+        </a>
+        <a href="">
+            <div class="nav-item"><i class="fa-solid fa-book-bookmark"></i></div>
+        </a>
     </nav>
+
+    <script src="./scripts/main.js"></script>
 </body>
 
 </html>
