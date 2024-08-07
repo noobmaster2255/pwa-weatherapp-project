@@ -14,13 +14,16 @@ i:hover {
 
 body {
     background: linear-gradient(360deg, #193191 0%, #0d194a 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     align-items: flex-start;
-    /* height: 100vh; */
     flex-direction: column;
 }
 
 .container {
+    flex: 1;
     margin: 0;
     padding: 1em;
     width: 100%;
@@ -37,6 +40,10 @@ body {
 
 .container>* {
     width: 100%;
+    margin-bottom: 5% !important;
+}
+
+.container-row {
     margin-bottom: 5% !important;
 }
 
@@ -217,7 +224,7 @@ body {
 }
 
 
-/* forecast page  */
+/* forecast  */
 .forecast-container {
     display: flex;
     flex-direction: column;
@@ -264,4 +271,100 @@ body {
     width: 20%;
     height: auto;
     object-fit: fill;
+}
+
+/* bookmark page  */
+.add-location {
+    justify-content: flex-end;
+}
+
+.bookmark-container {
+    margin-top: 1em;
+}
+
+.bookmark-tile {
+    display: flex;
+    flex-direction: row;
+    border-radius: 1em;
+    background: rgba(11, 22, 64, 0.7);
+    padding: 2em 1.5em;
+    justify-content: flex-start;
+    margin-top: 1em;
+    font-size: 0.8em;
+}
+
+.user-detail {
+    margin-left: 5%;
+}
+
+.logout-tile {
+    justify-content: center;
+    cursor: pointer;
+}
+
+.logout-tile>* {
+    cursor: pointer;
+}
+
+
+/* for large screens  */
+
+@media (min-width: 768px) {
+    .container {
+        padding: 3em;
+    }
+
+    .container-row {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start
+    }
+
+    .container-row>* {
+        width: 50% !important;
+    }
+    .top-icons {
+        width: 100%;
+    }
+
+    .search-container {
+        max-width: 0%;
+    }
+
+    .container-2x{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .container-2x > *{
+        width: 50%;
+        align-items: flex-start;
+    }
+    .location-and-img-container {
+        width: 100% !important;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    .image-container {
+        width: 40%;
+    }
+
+    .image-container img {
+        width: 70%;
+    }
+
+    .location-container {
+        justify-content: flex-start;
+        font-size: 1.3em;
+    }
+
+    .temperature-container {
+        justify-content: flex-start
+    }
+
+    .weather-conditions-tile-container {
+        grid-template-columns: 1fr 1fr;
+    }
 }
