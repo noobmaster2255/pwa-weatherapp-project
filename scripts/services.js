@@ -49,9 +49,9 @@ function addForecast(data) {
     }
 
 
-    for (let i = 1; 1 < foreCast.length; i++) {
+    for (let i = 1; i < foreCast.length; i++) {
         const foreCastDay = foreCast[i];
-
+        
         const fContainer = document.createElement('div');
         fContainer.className = "f-forecast-container";
         const fDay = document.createElement('p');
