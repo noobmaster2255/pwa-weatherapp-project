@@ -10,6 +10,10 @@ function getWeatherDeatails(query) {
         .then(data => {
             // Process the fetched data
             console.log('weather data: ', data);
+            currentLocationName.textContent = `${data.location.name}, ${data.location.region}`;
+            let imageUrl = `${data.current.condition.icon}`;
+            
+            currentLocationWeatherImage.src = imageUrl.replace("64x64","128x128");
         })
         .catch(error => {
             // Handle errors
