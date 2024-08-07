@@ -76,7 +76,7 @@ function addForecast(data) {
         fWeatherCond.textContent = foreCastDay.day.condition.text;
 
         const fWeatherImag = document.createElement("img");
-        fWeatherImag.src = foreCastDay.day.condition.icon;
+        fWeatherImag.src = foreCastDay.day.condition.icon.replace("64x64","128x128");
 
 
         fImagContainer.appendChild(fWeatherImag);
