@@ -43,7 +43,12 @@ function getHomeWeatherDetails(query) {
 function addForecast(data) {
     let foreCast = data.forecast.forecastday;
     const foreCastRow = document.getElementById("f-row");
-    
+
+    for (let i = foreCastRow.children.length - 1; i >= 0; i--) {
+        foreCastRow.removeChild(foreCastRow.children[i]);
+    }
+
+
     for (let i = 1; 1 < foreCast.length; i++) {
         const foreCastDay = foreCast[i];
 
@@ -51,15 +56,15 @@ function addForecast(data) {
         fContainer.className = "f-forecast-container";
         const fDay = document.createElement('p');
         fDay.className = "f-day";
-        if(i==1) {
+        if (i == 1) {
             fDay.textContent = "Tomorrow";
         } else {
-            const date =new Date(foreCastDay.date);
+            const date = new Date(foreCastDay.date);
             console.log(date.getDay())
             console.log(daysOfWeek[date.getDay()]);
             fDay.textContent = daysOfWeek[date.getDay()];
         }
-        
+
 
         fContainer.appendChild(fDay);
 
@@ -73,7 +78,7 @@ function addForecast(data) {
         const fWeatherImag = document.createElement("img");
         fWeatherImag.src = foreCastDay.day.condition.icon;
 
-        
+
         fImagContainer.appendChild(fWeatherImag);
         fImagContainer.appendChild(fWeatherCond);
 
@@ -82,7 +87,7 @@ function addForecast(data) {
 
         const fTemp = document.createElement("p");
         fTemp.textContent = `${foreCastDay.day.avgtemp_c}℃`;
-        
+
         fContainer.appendChild(fTemp);
 
         foreCastRow.appendChild(fContainer);
