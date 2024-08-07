@@ -20,52 +20,55 @@
 
         <div class="forecast-container bookmark-container">
             <p class="forecast-heading">Saved Location</p>
-            <div class="f-forecast-container">
-                <p class="f-day">India</p>
-                <div class="f-weather-condition-img">
-                    <p class="f-weather-condition">Sunny</p>
-                    <img src="../assets/icons/weather-icon-example.svg" alt="">
+            <div class="tile-container">
+                <div class="f-forecast-container bookmark-tile-container">
+                    <p class="f-day" id="savedLocation">India</p>
+                    <div class="f-weather-condition-img">
+                        <p class="f-weather-condition" id="savedLocationWeatherCondition">Sunny</p>
+                        <img src="../assets/icons/weather-icon-example.svg" alt="" id="savedLocationWeatheImage">
+                    </div>
+                    <p id="savedLocationTemperature">24°C</p>
                 </div>
-                <p>24°C</p>
+
+                <div class="f-forecast-container bookmark-tile-container">
+                    <p class="f-day">China</p>
+                    <div class="f-weather-condition-img">
+                        <p class="f-weather-condition">Sunny</p>
+                        <img src="../assets/icons/weather-icon-example.svg" alt="">
+                    </div>
+                    <p>24°C</p>
+                </div>
+
+                <div class="f-forecast-container bookmark-tile-container">
+                    <p class="f-day">Canada</p>
+                    <div class="f-weather-condition-img">
+                        <p class="f-weather-condition">Sunny</p>
+                        <img src="../assets/icons/weather-icon-example.svg" alt="">
+                    </div>
+                    <p>24°C</p>
+                </div>
+
+                <div class="f-forecast-container bookmark-tile-container">
+                    <p class="f-day">Paris</p>
+                    <div class="f-weather-condition-img">
+                        <p class="f-weather-condition">Sunny</p>
+                        <img src="../assets/icons/weather-icon-example.svg" alt="">
+                    </div>
+                    <p>24°C</p>
+                </div>
             </div>
 
-            <div class="f-forecast-container">
-                <p class="f-day">China</p>
-                <div class="f-weather-condition-img">
-                    <p class="f-weather-condition">Sunny</p>
-                    <img src="../assets/icons/weather-icon-example.svg" alt="">
-                </div>
-                <p>24°C</p>
-            </div>
-
-            <div class="f-forecast-container">
-                <p class="f-day">Canada</p>
-                <div class="f-weather-condition-img">
-                    <p class="f-weather-condition">Sunny</p>
-                    <img src="../assets/icons/weather-icon-example.svg" alt="">
-                </div>
-                <p>24°C</p>
-            </div>
-
-            <div class="f-forecast-container">
-                <p class="f-day">Paris</p>
-                <div class="f-weather-condition-img">
-                    <p class="f-weather-condition">Sunny</p>
-                    <img src="../assets/icons/weather-icon-example.svg" alt="">
-                </div>
-                <p>24°C</p>
-            </div>
         </div>
     </div>
     <nav class="navigation-bar">
         <a href="../index.html">
-            <div class="nav-item"><i class="fa-solid fa-house-chimney"></i></div>
+            <div class="nav-item"><i class="fa-solid fa-house-chimney" id="homeNavIcon"></i></div>
         </a>
-        <a href="./bookmark.html">
-            <div class="nav-item"><i class="fa-solid fa-book-bookmark"></i></div>
+        <a href="../pages/bookmark.html">
+            <div class="nav-item"><i class="fa-solid fa-book-bookmark" id="bookmarkNavIcon"></i></div>
         </a>
-        <a href="./profile.html">
-            <div class="nav-item"><i class="fa-solid fa-user"></i></div>
+        <a href="../pages/profile.html">
+            <div class="nav-item"><i class="fa-solid fa-user" id="profileNavIcon"></i></div>
         </a>
     </nav>
 

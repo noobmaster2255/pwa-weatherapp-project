@@ -11,21 +11,21 @@
 
 <body>
     <div class="container">
-        <div class="forecast-container bookmark-container">
+        <div class="forecast-container bookmark-container user-detail-container">
 
-            <p class="forecast-heading">User Details</p>
+            <p class="forecast-heading user-heading">User Details</p>
 
-            <div class="bookmark-tile">
+            <div class="bookmark-tile user-detail-tile">
                 <p>Email:</p>
-                <p class="f-day user-email user-detail">noobmaster@gmail.com</p>
+                <p class="f-day user-email user-detail" id="userEmail">noobmaster@gmail.com</p>
             </div>
 
-            <div class="bookmark-tile">
+            <div class="bookmark-tile user-detail-tile">
                 <p>Password:</p>
-                <p class="f-day user-password user-detail">noobmaster123</p>
+                <p class="f-day user-password user-detail" id="userPassword">noobmaster123</p>
             </div>
 
-            <div class="bookmark-tile logout-tile">
+            <div class="bookmark-tile logout-tile user-detail-tile" id="logoutContainer">
                 <p>Logout</p>
                 <i class="fa-solid fa-right-from-bracket user-detail"></i>
             </div>
@@ -33,13 +33,13 @@
     </div>
     <nav class="navigation-bar">
         <a href="../index.html">
-            <div class="nav-item"><i class="fa-solid fa-house-chimney"></i></div>
+            <div class="nav-item"><i class="fa-solid fa-house-chimney" id="homeNavIcon"></i></div>
         </a>
-        <a href="./bookmark.html">
-            <div class="nav-item"><i class="fa-solid fa-book-bookmark"></i></div>
+        <a href="../pages/bookmark.html">
+            <div class="nav-item"><i class="fa-solid fa-book-bookmark" id="bookmarkNavIcon"></i></div>
         </a>
-        <a href="./profile.html">
-            <div class="nav-item"><i class="fa-solid fa-user"></i></div>
+        <a href="../pages/profile.html">
+            <div class="nav-item"><i class="fa-solid fa-user" id="profileNavIcon"></i></div>
         </a>
     </nav>
 
