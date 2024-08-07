@@ -312,7 +312,7 @@ body {
 
 @media (min-width: 768px) {
     .container {
-        padding: 3em;
+        padding: 4em 10em;
     }
 
     .container>* {
