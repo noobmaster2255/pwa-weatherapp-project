@@ -1,7 +1,5 @@
 const searchContainer = document.getElementById("searchContainer");
 const searchBar = document.getElementById("searchBar");
-const currentLocationName = document.getElementById("locationName");
-const currentLocationWeatherImage = document.getElementById("weatherImage");
 
 searchContainer.addEventListener("click", function (event) {
   searchContainer.classList.add("active");
@@ -15,7 +13,7 @@ document.addEventListener("click", function (event) {
     }
   } else {
     if (searchBar.value.trim() != "") {
-      getWeatherDeatails(searchBar.value.trim())
+      getHomeWeatherDetails(searchBar.value.trim())
       searchBar.value = "";
     }
   }

@@ -261,7 +261,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     overflow-x: hidden;
-    text-align: right;
+    text-align: left;
     width: 35%;
 }
 
