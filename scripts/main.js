@@ -1,5 +1,6 @@
 const searchContainer = document.getElementById("searchContainer");
 const searchBar = document.getElementById("searchBar");
+const currentLocationIcon = document.getElementById("currentLocationIcon");
 
 searchContainer.addEventListener("click", function (event) {
   searchContainer.classList.add("active");
@@ -17,4 +18,17 @@ document.addEventListener("click", function (event) {
       searchBar.value = "";
     }
   }
+
+  if (event.target == currentLocationIcon) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      getHomeWeatherDetails(`${position.coords.latitude},${position.coords.longitude}`);
+    });
+  }
 });
+
+if ("geolocation" in navigator) {
+  console.log("geolocation available")
+} else {
+  console.log("geolocation not available")
+  currentLocationIcon.style.visibility = false;
+}
