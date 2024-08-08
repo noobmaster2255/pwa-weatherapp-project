@@ -293,6 +293,24 @@ body {
     font-size: 0.8em;
 }
 
+.bookmark-weather-condition-img {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    text-align: left;
+    width: 35%;
+}
+
+.bookmark-weather-condition-img img {
+    width: 20%;
+    height: auto;
+    object-fit: fill;
+    max-width: 1em;
+}
+
 .user-detail {
     margin-left: 5%;
 }
