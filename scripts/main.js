@@ -32,3 +32,21 @@ if ("geolocation" in navigator) {
   console.log("geolocation not available")
   currentLocationIcon.style.visibility = false;
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM content loaded');
+  
+  //check whether it is bookmark page
+  if (window.location.href.includes('bookmark')) {
+    getAllBookmarkedLocations();
+    return;
+  }
+
+  if (window.location.href.includes('index')) {
+    
+    return;
+  }
+});
+
