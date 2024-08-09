@@ -4,7 +4,7 @@ const searchContainer = document.getElementById("searchContainer");
 const searchBar = document.getElementById("searchBar");
 const currentLocationIcon = document.getElementById("currentLocationIcon");
 const bookmarkButton = document.getElementById("bookmarkButton");
-
+const baseUrl = "http://api.weatherapi.com/v1/forecast.json?";
 searchContainer.addEventListener("click", function (event) {
   searchContainer.classList.add("active");
   searchBar.focus();
@@ -117,7 +117,7 @@ const apiKey = "2eb345d2cc5549afb6030800241407";
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 function getHomeWeatherDetails(query) {
-  const apiUrlStr = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${query}&days=3&aqi=no&alerts=no`;
+  const apiUrlStr = `${baseUrl}key=${apiKey}&q=${query}&days=3&aqi=no&alerts=no`;
 
   fetch(apiUrlStr)
     .then((response) => response.json())
@@ -175,10 +175,46 @@ function getHomeWeatherDetails(query) {
 }
 
 function getAllBookmarkedLocations() {
-  weatherDB.getAllBookmarkedLocations()
-    .then((locations) => {
-      displayBookmarkedLocation(locations);
+  weatherDB.checkUserLoggedIn()
+    .then((user) => {
+      weatherDB.getAllBookmarkedLocations(user)
+        .then((locations) => {
+          displayBookmarkedLocation(locations);
+          refreshBookmarkedLocations(locations, user);
+        });
     });
+
+}
+
+function refreshBookmarkedLocations(locations, user) {
+  const promises = [];
+  for (const key in locations) {
+    const apiUrlStr = `${baseUrl}key=${apiKey}&q=${key}&days=3&aqi=no&alerts=no`;
+    promises.push(
+      fetch(apiUrlStr)
+        .then((response) => response.json())
+        .then((data) => {
+          return data;
+        })
+    );
+  }
+  Promise.all(promises)
+    .then(results => {
+      // All fetches have completed
+      console.log('All data fetched:', results);
+      // Perform action with the collected data
+      let updatedLocations = {}
+      for (let i=0; i<results.length; i++) {
+        let loc = results[i];
+        updatedLocations[getLocationName(loc)] = loc
+      }
+      weatherDB.updateBookmarkedLocations(updatedLocations, user);
+      displayBookmarkedLocation(updatedLocations);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+
 }
 
 function getLocationName(data) {
