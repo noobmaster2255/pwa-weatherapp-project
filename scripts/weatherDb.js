@@ -148,6 +148,22 @@ class WeatherDB {
     //     });
     // });
   }
+
+
+  getAllBookmarkedLocations() {
+    return new Promise(async (resolve, reject) => {
+      const querySnapshot = await getDocs(collection(this.db, "bookmarks"));
+      let locations = {};
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        const location = doc.data();
+        locations[`${location.location.name}, ${location.location.region}`] = location;
+      });
+      resolve(locations);
+    });
+  }
+
 }
 
 export default WeatherDB;
