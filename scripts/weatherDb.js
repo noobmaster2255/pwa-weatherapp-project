@@ -3,6 +3,7 @@ import {
   getFirestore,
   collection,
   addDoc,
+  setDoc,
   getDocs,
   query,
   where,
@@ -19,9 +20,11 @@ import {
 
 class WeatherDB {
   constructor() {
+    this.currentData = null;
     this.db = null;
     this.auth = null;
     this.isAvailable = false;
+    this.user = null;
   }
 
   open() {
@@ -44,6 +47,7 @@ class WeatherDB {
           this.db = db;
           this.auth = auth;
           this.isAvailable = true;
+          this.user = auth.currentUser
           resolve();
         } else {
           reject("Database or Auth is not available");
@@ -82,7 +86,7 @@ class WeatherDB {
     return new Promise((resolve, reject) => {
       onAuthStateChanged(this.auth, (user) => {
         if (user) {
-          console.log("user is logged in" , user.email)
+          console.log("User : ", user.email);
           resolve(user);
         } else {
           reject("No user logged in");
@@ -91,31 +95,58 @@ class WeatherDB {
     });
   }
 
-  addBookmark(user, data) {
-    return addDoc(collection(this.db, "bookmarks"), {
-      userId: user.uid,
-      ...data,
-    });
+  setCurrentData(data) {
+    this.currentData = data;
+  }
+  addBookmark(user) {
+    let data = this.currentData;
+    data.id = `${user.uid}_${data.location.name}_${data.location.region}`;
+    return setDoc(doc(this.db, "bookmarks", `${user.uid}_${data.location.name}_${data.location.region}`), data);
+    // return addDoc(collection(this.db, "bookmarks"), data);
   }
 
-  isLocationBookmarked(user, locationName) {
+  checkIfLocationBookmarked(user, location) {
     return new Promise(async (resolve, reject) => {
-      try {
-        const q = query(
-          collection(this.db, "bookmarks"),
-          where("userId", "==", user.uid),
-          where("location", "==", locationName)
-        );
-        const querySnapshot = await getDocs(q);
-        if (!querySnapshot.empty) {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      } catch (error) {
-        reject(error.message);
-      }
+      const q = query(
+        collection(this.db, "bookmarks"),
+        where("id", "==", `${user.uid}_${location}`)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((element) => {
+        console.log("element...", element.data());
+        resolve(true);
+      });
+      resolve(false);
+      // if (!querySnapshot.empty) {
+      //   resolve(true);
+      // } else {
+      //   resolve(false);
+      // }
     });
+
+    // querySnapshot.forEach((doc) => {
+    //   console.log(doc.id, " => ", doc.data());
+    // });
+
+    // return new Promise((resolve, reject) => {
+    //   const bookmarkPath = `bookmarks`;
+    //   const bookmarkRef = doc(this.db, bookmarkPath);
+    //   console.log(bookmarkRef);
+    //   bookmarkRef
+    //     .where("id", "==", `${user.uid}_${data.location.name}_${data.location.region}`)
+    //     .get()
+    //     .then((querySnapshot) => {
+    //       if (!querySnapshot.empty) {
+    //         resolve(true);
+    //       } else {
+    //         resolve(false);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       resolve(false);
+    //       // reject("Error checking bookmarks:", error);
+    //     });
+    // });
   }
 }
 

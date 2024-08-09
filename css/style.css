@@ -7,6 +7,14 @@
     padding: 0;
 }
 
+.modal-content{
+    background: linear-gradient(360deg, #193191 0%, #0d194a 100%);
+}
+
+.close-btn{
+    filter: invert(1);
+}
+
 i:hover {
     color: rgba(230, 230, 230, 0.413);
     cursor: pointer;
@@ -18,7 +26,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -125,7 +133,7 @@ body {
 
 .location-name {
     font-weight: 400;
-    font-size: 1.3em;
+    font-size: 1em;
     color: #fff;
     margin-right: 15%;
 }
@@ -332,7 +340,7 @@ body {
 
 @media (min-width: 768px) {
     .container {
-        padding: 4em 10em;
+        padding: 10%;
     }
 
     .container>* {
@@ -442,9 +450,9 @@ body {
         width: 100%;
     }
 
-    .f-weather-condition-img img {
+    /* .f-weather-condition-img img {
         width: 30;
-    }
+    } */
 
     .bookmark-tile-container {
         width: 100%;
