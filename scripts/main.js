@@ -4,11 +4,15 @@ const searchContainer = document.getElementById("searchContainer");
 const searchBar = document.getElementById("searchBar");
 const currentLocationIcon = document.getElementById("currentLocationIcon");
 const bookmarkButton = document.getElementById("bookmarkButton");
+const profileNavIcon = document.getElementById("profileNavIcon");
+
 const baseUrl = "http://api.weatherapi.com/v1/forecast.json?";
-searchContainer.addEventListener("click", function (event) {
-  searchContainer.classList.add("active");
-  searchBar.focus();
-});
+if (searchContainer != null) {
+  searchContainer.addEventListener("click", function (event) {
+    searchContainer.classList.add("active");
+    searchBar.focus();
+  });
+}
 
 document.addEventListener("click", function (event) {
   if (!searchContainer.contains(event.target)) {
@@ -49,6 +53,12 @@ document.addEventListener("DOMContentLoaded", function () {
     bookmarkButton.addEventListener("click", function () {
       handleBookmarkData();
     });
+    return;
+  }
+
+  // check whether it is user profile page
+  if (window.location.href.includes("profile")) {
+    getUserDetails();
     return;
   }
 });
@@ -173,15 +183,12 @@ function getHomeWeatherDetails(query) {
 }
 
 function getAllBookmarkedLocations() {
-  weatherDB.checkUserLoggedIn()
-    .then((user) => {
-      weatherDB.getAllBookmarkedLocations(user)
-        .then((locations) => {
-          displayBookmarkedLocation(locations);
-          refreshBookmarkedLocations(locations, user);
-        });
+  weatherDB.checkUserLoggedIn().then((user) => {
+    weatherDB.getAllBookmarkedLocations(user).then((locations) => {
+      displayBookmarkedLocation(locations);
+      refreshBookmarkedLocations(locations, user);
     });
-
+  });
 }
 
 function refreshBookmarkedLocations(locations, user) {
@@ -197,23 +204,22 @@ function refreshBookmarkedLocations(locations, user) {
     );
   }
   Promise.all(promises)
-    .then(results => {
+    .then((results) => {
       // All fetches have completed
-      console.log('All data fetched:', results);
+      console.log("All data fetched:", results);
       // Perform action with the collected data
-      let updatedLocations = {}
-      for (let i=0; i<results.length; i++) {
+      let updatedLocations = {};
+      for (let i = 0; i < results.length; i++) {
         let loc = results[i];
-        updatedLocations[getLocationName(loc)] = loc
+        updatedLocations[getLocationName(loc)] = loc;
       }
       // console.log("asada",user, updatedLocations)
       weatherDB.updateBookmarkedLocations(updatedLocations, user);
       displayBookmarkedLocation(updatedLocations);
     })
-    .catch(error => {
-      console.error('Error fetching data:', error);
+    .catch((error) => {
+      console.error("Error fetching data:", error);
     });
-
 }
 
 function getLocationName(data) {
@@ -303,13 +309,48 @@ function displayBookmarkedLocation(locations) {
       const bTemp = document.createElement("p");
       bTemp.textContent = `${data.current.temp_c}℃`;
 
+      const bIcon = document.createElement("i");
+      bIcon.className = "fa-solid fa-bookmark";
+
       bContainer.appendChild(bImgContainer);
       bContainer.appendChild(bTemp);
+      bContainer.appendChild(bIcon);
 
       bList.appendChild(bContainer);
+
+      bIcon.addEventListener("click", () => {
+        weatherDB.removeBookmarkedLocation(data).then((isDeleted) => {
+          if (isDeleted) {
+            bList.removeChild(bContainer);
+          }
+        });
+      });
     });
 }
 
-function addBookMarkedLocation(data) { }
+function getUserDetails() {
+  weatherDB
+    .checkUserLoggedIn()
+    .then((user) => {
+      displayUserDetails(user);
+    })
+    .catch((error) => {
+      // showModal();
+    });
+}
 
-function removeBookMarkedLocation() { }
+function displayUserDetails(user) {
+  const userEmail = document.getElementById("userEmail");
+  userEmail.textContent = user.email;
+}
+
+window.logoutUser = function logoutUser() {
+  weatherDB.logout().then((message) => {
+    const userEmail = document.getElementById("userEmail");
+    userEmail.textContent = "";
+    alert(message);
+  });
+};
+function addBookMarkedLocation(data) {}
+
+function removeBookMarkedLocation() {}

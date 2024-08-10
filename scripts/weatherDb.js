@@ -16,6 +16,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 class WeatherDB {
@@ -79,6 +80,18 @@ class WeatherDB {
       signInWithEmailAndPassword(this.auth, email, password)
         .then((userCredentials) => {
           resolve(userCredentials.user);
+        })
+        .catch((error) => {
+          reject(error.message);
+        });
+    });
+  }
+
+  logout() {
+    return new Promise((resolve, reject) => {
+      signOut(this.auth)
+        .then(() => {
+          resolve("Logout succesfull");
         })
         .catch((error) => {
           reject(error.message);
@@ -158,11 +171,20 @@ class WeatherDB {
     // return addDoc(collection(this.db, "bookmarks"), data);
   }
 
-  removeBookmarkedLocation(location, user) {
+  removeBookmarkedLocation(data) {
     return new Promise(async (resolve, reject) => {
-      await deleteDoc(
-        doc(this.db, "bookmarks", `${user.uid}_${data.location.name}_${data.location.region}`)
-      );
+      try {
+        await deleteDoc(
+          doc(
+            this.db,
+            "bookmarks",
+            `${this.user.uid}_${data.location.name}_${data.location.region}`
+          )
+        );
+        resolve(true);
+      } catch (error) {
+        reject(error.message);
+      }
     });
   }
 }
