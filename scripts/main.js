@@ -128,7 +128,6 @@ function getHomeWeatherDetails(query) {
           weatherDB
             .checkIfLocationBookmarked(user, `${data.location.name}_${data.location.region}`)
             .then((result) => {
-              console.log("res...", result);
               const bookmarkButton = document.getElementById("bookmarkButton");
               if (result) {
                 // bookmarkButton.className = "";
@@ -144,7 +143,6 @@ function getHomeWeatherDetails(query) {
     })
     .then((data) => {
       // Process the fetched data
-      console.log("weather data: ", data);
       const currentLocationName = document.getElementById("locationName");
       const currentLocationWeatherImage = document.getElementById("weatherImage");
       const currentLocationTemp = document.getElementById("temperature");
@@ -208,6 +206,7 @@ function refreshBookmarkedLocations(locations, user) {
         let loc = results[i];
         updatedLocations[getLocationName(loc)] = loc
       }
+      // console.log("asada",user, updatedLocations)
       weatherDB.updateBookmarkedLocations(updatedLocations, user);
       displayBookmarkedLocation(updatedLocations);
     })
@@ -240,7 +239,6 @@ function addForecast(data) {
       fDay.textContent = "Tomorrow";
     } else {
       const date = new Date(foreCastDay.date);
-      console.log(date.getDay());
       console.log(daysOfWeek[date.getDay()]);
       fDay.textContent = daysOfWeek[date.getDay()];
     }

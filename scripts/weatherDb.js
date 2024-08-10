@@ -47,7 +47,7 @@ class WeatherDB {
           this.db = db;
           this.auth = auth;
           this.isAvailable = true;
-          this.user = auth.currentUser
+          this.user = auth.currentUser;
           resolve();
         } else {
           reject("Database or Auth is not available");
@@ -56,6 +56,10 @@ class WeatherDB {
         reject(error.message);
       }
     });
+  }
+
+  setCurrentData(data) {
+    this.currentData = data;
   }
 
   signUp(email, password) {
@@ -96,14 +100,14 @@ class WeatherDB {
     });
   }
 
-  setCurrentData(data) {
-    this.currentData = data;
-  }
   addBookmark(user) {
     let data = this.currentData;
     data.id = `${user.uid}_${data.location.name}_${data.location.region}`;
     data.userId = user.uid;
-    return setDoc(doc(this.db, "bookmarks", `${user.uid}_${data.location.name}_${data.location.region}`), data);
+    return setDoc(
+      doc(this.db, "bookmarks", `${user.uid}_${data.location.name}_${data.location.region}`),
+      data
+    );
     // return addDoc(collection(this.db, "bookmarks"), data);
   }
 
@@ -115,47 +119,18 @@ class WeatherDB {
       );
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((element) => {
-        console.log("element...", element.data());
         resolve(true);
       });
       resolve(false);
-      // if (!querySnapshot.empty) {
-      //   resolve(true);
-      // } else {
-      //   resolve(false);
-      // }
     });
-
-    // querySnapshot.forEach((doc) => {
-    //   console.log(doc.id, " => ", doc.data());
-    // });
-
-    // return new Promise((resolve, reject) => {
-    //   const bookmarkPath = `bookmarks`;
-    //   const bookmarkRef = doc(this.db, bookmarkPath);
-    //   console.log(bookmarkRef);
-    //   bookmarkRef
-    //     .where("id", "==", `${user.uid}_${data.location.name}_${data.location.region}`)
-    //     .get()
-    //     .then((querySnapshot) => {
-    //       if (!querySnapshot.empty) {
-    //         resolve(true);
-    //       } else {
-    //         resolve(false);
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       resolve(false);
-    //       // reject("Error checking bookmarks:", error);
-    //     });
-    // });
   }
-
 
   getAllBookmarkedLocations(user) {
     return new Promise(async (resolve, reject) => {
-      const querySnapshot = await getDocs(collection(this.db, "bookmarks"),
-        where("userId", "==", `${user.uid}`));
+      const querySnapshot = await getDocs(
+        collection(this.db, "bookmarks"),
+        where("userId", "==", `${user.uid}`)
+      );
       let locations = {};
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -168,16 +143,28 @@ class WeatherDB {
   }
 
   updateBookmarkedLocations(locations, user) {
-    for (location in locations) {
-      let data = locations[key];
-      data.id = `${user.uid}_${data.location.name}_${data.location.region}`;
-      data.userId = user.uid;
-      setDoc(doc(this.db, "bookmarks", `${user.uid}_${data.location.name}_${data.location.region}`), data);
-    }
+    Object.keys(locations)
+      .sort()
+      .forEach((key) => {
+        const data = locations[key];
+        data.id = `${user.uid}_${data.location.name}_${data.location.region}`;
+        data.userId = user.uid;
+        setDoc(
+          doc(this.db, "bookmarks", `${user.uid}_${data.location.name}_${data.location.region}`),
+          data
+        );
+      });
 
     // return addDoc(collection(this.db, "bookmarks"), data);
   }
 
+  removeBookmarkedLocation(location, user) {
+    return new Promise(async (resolve, reject) => {
+      await deleteDoc(
+        doc(this.db, "bookmarks", `${user.uid}_${data.location.name}_${data.location.region}`)
+      );
+    });
+  }
 }
 
 export default WeatherDB;

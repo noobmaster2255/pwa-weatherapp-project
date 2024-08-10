@@ -340,7 +340,7 @@ body {
 
 @media (min-width: 768px) {
     .container {
-        padding: 10%;
+        /* padding: 10%; */
     }
 
     .container>* {
@@ -479,6 +479,7 @@ body {
     }
 
     .user-detail-container {
+        /* width: 80% !important; */
         align-items: center;
         padding: 1.5em;
     }
