@@ -1,5 +1,18 @@
 import WeatherDB from "../scripts/weatherDb.js";
 
+// Registration of the Service Worker
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+    .then((registration) => {
+      console.log('Register success: ', registration);
+    })
+    .catch((error) => {
+      console.log('Register failed: ', error);
+    });
+} else {
+  console.log("Service Workers are not supported!");
+}
+
 const searchContainer = document.getElementById("searchContainer");
 const searchBar = document.getElementById("searchBar");
 const currentLocationIcon = document.getElementById("currentLocationIcon");
