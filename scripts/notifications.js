@@ -22,10 +22,12 @@ if('Notification' in window && 'serviceWorker' in navigator) {
         requestUserPermission();
         break;
       case 'denied':
-        console.log('Permission Denied');
+        const notDeniedModal = new bootstrap.Modal(document.getElementById('notDeniedModal'));
+        notDeniedModal.show();
+        notificationToggle.checked = false;
         break;
       case 'granted':
-        console.log('Permission Granted');
+        notificationToggle.checked = false;
         break;
     }
   });
@@ -37,6 +39,7 @@ function requestUserPermission() {
     .then((permission) => {
       if(permission == 'granted') {
         displayNotification('Permission Granted', 'You are now ready to receive notifications.');
+        notificationToggle.setAttribute('checked', '');
       } else if(permission == 'denied') {
         const notDeniedModal = new bootstrap.Modal(document.getElementById('notDeniedModal'));
         notDeniedModal.show();
