@@ -27,11 +27,30 @@ document.addEventListener("click", function (event) {
   }
 
   if (event.target == currentLocationIcon) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      getHomeWeatherDetails(`${position.coords.latitude},${position.coords.longitude}`);
-    });
+    loadCurrentLocationWeather('click');
   }
 });
+
+function loadCurrentLocationWeather(action) {
+  navigator.geolocation.getCurrentPosition((position) => {
+    getHomeWeatherDetails(`${position.coords.latitude},${position.coords.longitude}`);
+  },
+    (error) => {
+      console.error('Error getting location:', error.message);
+      // Handle errors, e.g., permission denied, unavailable location services
+      if (error.code === error.PERMISSION_DENIED) {
+        if (action == 'click') {
+          alert('Location access denied. Please enable location services in your browser settings.');
+        } else {
+          getHomeWeatherDetails('London, Ontario');
+        }
+      } else if (error.code === error.POSITION_UNAVAILABLE) {
+        alert('Location information is unavailable.');
+      } else if (error.code === error.TIMEOUT) {
+        alert('The request to get user location timed out.');
+      }
+    });
+}
 
 if ("geolocation" in navigator) {
   console.log("geolocation available");
@@ -53,6 +72,12 @@ document.addEventListener("DOMContentLoaded", function () {
     bookmarkButton.addEventListener("click", function () {
       handleBookmarkData();
     });
+
+    if (navigator.geolocation) {
+      loadCurrentLocationWeather('pageLoad');
+    } else {
+      getHomeWeatherDetails('London, Ontario');
+    }
     return;
   }
 
@@ -351,6 +376,6 @@ window.logoutUser = function logoutUser() {
     alert(message);
   });
 };
-function addBookMarkedLocation(data) {}
+function addBookMarkedLocation(data) { }
 
-function removeBookMarkedLocation() {}
+function removeBookMarkedLocation() { }
