@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <div class="top-icons">
+        <div class="top-icons" style="display: none;">
             <i class="fa-solid fa-location-crosshairs" id="currentLocationIcon"></i>
             <div class="search-container" id="searchContainer">
                 <input class="search-bar" id="searchBar" type="text" placeholder="Enter the location">
@@ -36,14 +36,9 @@
               </div>
             </div>
 
-            <!-- <div class="bookmark-tile user-detail-tile">
-                <p>Password:</p>
-                <p class="f-day user-password user-detail" id="userPassword">noobmaster123</p>
-            </div> -->
-
-            <div class="bookmark-tile logout-tile user-detail-tile" id="logoutContainer" onclick="logoutUser()">
-                <p>Logout</p>
-                <i class="fa-solid fa-right-from-bracket user-detail"></i>
+            <div class="bookmark-tile logout-tile user-detail-tile" id="logoutContainer" onclick="handleAuthAction()">
+                <p id="authText"></p>
+                <i class="fa-solid fa-right-from-bracket user-detail" id="authIcon"></i>
             </div>
         </div>
     </div>
