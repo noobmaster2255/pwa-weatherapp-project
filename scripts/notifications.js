@@ -3,16 +3,16 @@ const notificationToggle = document.getElementById('notificationToggle');
 if('Notification' in window && 'serviceWorker' in navigator) {
   switch(Notification.permission) {
     case 'default':
-      notificationToggle.removeAttribute('checked');
+      notificationToggle.checked = false;
       break;
     case 'granted':
       notificationToggle.setAttribute('checked', '');
       break;
     case 'denied':
-      notificationToggle.removeAttribute('checked');
+      notificationToggle.checked = false;
       break;
     default:
-      notificationToggle.removeAttribute('checked');
+      notificationToggle.checked = false;
       break;
   }
 
@@ -22,8 +22,10 @@ if('Notification' in window && 'serviceWorker' in navigator) {
         requestUserPermission();
         break;
       case 'denied':
+        console.log('Permission Denied');
         break;
       case 'granted':
+        console.log('Permission Granted');
         break;
     }
   });
@@ -38,9 +40,11 @@ function requestUserPermission() {
       } else if(permission == 'denied') {
         const notDeniedModal = new bootstrap.Modal(document.getElementById('notDeniedModal'));
         notDeniedModal.show();
+        notificationToggle.checked = false;
       } else {
         const notDefaultModal = new bootstrap.Modal(document.getElementById('notDefaultModal'));
         notDefaultModal.show();
+        notificationToggle.checked = false;
       }
     });
 }
