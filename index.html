@@ -1,74 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://kit.fontawesome.com/c7ac081a39.js" crossorigin="anonymous"></script>
     <title>Weather App</title>
-</head>
-
-<body>
+    <link rel="icon" type="image/png" sizes="196x196" href="assets/app-icons/favicon-196.png">
+    <meta name="msapplication-square70x70logo" content="assets/app-icons/mstile-icon-128.png">
+    <meta name="msapplication-square150x150logo" content="assets/app-icons/mstile-icon-270.png">
+    <meta name="msapplication-square310x310logo" content="assets/app-icons/mstile-icon-558.png">
+    <meta name="msapplication-wide310x150logo" content="assets/app-icons/mstile-icon-558-270.png">
+    <link rel="apple-touch-icon" href="assets/app-icons/apple-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2732-2048.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1668-2388.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2388-1668.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1536-2048.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2048-1536.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1488-2266.jpg" media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2266-1488.jpg" media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1640-2360.jpg" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2360-1640.jpg" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1668-2224.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1290-2796.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2796-1290.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1179-2556.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2556-1179.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1284-2778.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2778-1284.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1170-2532.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2532-1170.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1125-2436.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2436-1125.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1242-2688.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2688-1242.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-828-1792.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1792-828.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1242-2208.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-2208-1242.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-750-1334.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="assets/app-icons/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  </head>
+  <body>
     <div class="container" id="indexContainer">
-        <div class="top-icons">
-            <i class="fa-solid fa-location-crosshairs" id="currentLocationIcon"></i>
-            <div class="search-container" id="searchContainer">
-                <input class="search-bar" id="searchBar" type="text" placeholder="Enter the location">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            </div>
+      <div class="top-icons">
+        <i class="fa-solid fa-location-crosshairs" id="currentLocationIcon"></i>
+        <div class="search-container" id="searchContainer">
+          <input class="search-bar" id="searchBar" type="text" placeholder="Enter the location">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
         </div>
-        <div class="container-2x">
-            <div class="container-row">
-                <div class="location-and-img-container">
-                    <div class="location-container">
-                        <h2 class="location-name" id="locationName">London, ON</h2>
-                        <i class="fa-regular fa-bookmark" id="bookmarkButton"></i>
-                        <!-- <i class="fa-solid fa-bookmark" style="display: none;"></i> -->
-                    </div>
-                    <div class="image-container">
-                        <img src="./assets/icons/weather-icon-example.svg" alt="weather-image" id="weatherImage"
-                            class="weather-image">
-                    </div>
-                </div>
-                <div class="temperature-container">
-                    <h2 class="temperature" id="temperature">25c</h2>
-                    <h4 class="weather-condition" id="weatherCondition">Mostly cloudy</h4>
-                </div>
+      </div>
+      <div class="container-2x">
+        <div class="container-row">
+          <div class="location-and-img-container">
+            <div class="location-container">
+              <h2 class="location-name" id="locationName">London, ON</h2>
+              <i class="fa-regular fa-bookmark" id="bookmarkButton"></i>
+
+              <!-- <i class="fa-solid fa-bookmark" style="display: none;"></i> -->
             </div>
-            <div class="weather-conditions-tile-container">
-                <div class="weather-conditions-tile">
-                    <img src="./assets/icons/temperature-icon.svg" alt="icon" class="weather-condition-icon">
-                    <p class="weather-condition-title">Feels like</p>
-                    <p class="weather-condition-value" id="feelsLike">30c</p>
-                </div>
-                <div class="weather-conditions-tile">
-                    <img src="./assets/icons/humidity-icon.svg" alt="icon" class="weather-condition-icon">
-                    <p class="weather-condition-title">Humidity</p>
-                    <p class="weather-condition-value" id="humidity">80%</p>
-                </div>
-                <div class="weather-conditions-tile">
-                    <img src="./assets/icons/wind-icon.svg" alt="icon" class="weather-condition-icon">
-                    <p class="weather-condition-title">Wind</p>
-                    <p class="weather-condition-value" id="wind">1 mi/h</p>
-                </div>
-                <div class="weather-conditions-tile">
-                    <img src="./assets/icons/uv-icon.svg" alt="icon" class="weather-condition-icon">
-                    <p class="weather-condition-title">UV</p>
-                    <p class="weather-condition-value" id="uv">4 weak</p>
-                </div>
+            <div class="image-container">
+              <img src="./assets/icons/weather-icon-example.svg" alt="weather-image" id="weatherImage" class="weather-image">
             </div>
+          </div>
+          <div class="temperature-container">
+            <h2 class="temperature" id="temperature">25c</h2>
+            <h4 class="weather-condition" id="weatherCondition">Mostly cloudy</h4>
+          </div>
         </div>
+        <div class="weather-conditions-tile-container">
+          <div class="weather-conditions-tile">
+            <img src="./assets/icons/temperature-icon.svg" alt="icon" class="weather-condition-icon">
+            <p class="weather-condition-title">Feels like</p>
+            <p class="weather-condition-value" id="feelsLike">30c</p>
+          </div>
+          <div class="weather-conditions-tile">
+            <img src="./assets/icons/humidity-icon.svg" alt="icon" class="weather-condition-icon">
+            <p class="weather-condition-title">Humidity</p>
+            <p class="weather-condition-value" id="humidity">80%</p>
+          </div>
+          <div class="weather-conditions-tile">
+            <img src="./assets/icons/wind-icon.svg" alt="icon" class="weather-condition-icon">
+            <p class="weather-condition-title">Wind</p>
+            <p class="weather-condition-value" id="wind">1 mi/h</p>
+          </div>
+          <div class="weather-conditions-tile">
+            <img src="./assets/icons/uv-icon.svg" alt="icon" class="weather-condition-icon">
+            <p class="weather-condition-title">UV</p>
+            <p class="weather-condition-value" id="uv">4 weak</p>
+          </div>
+        </div>
+      </div>
+      <div class="forecast-container">
+        <p class="forecast-heading">Forecast</p>
+        <div class="row" id="f-row">
 
-
-        <div class="forecast-container">
-            <p class="forecast-heading">Forecast</p>
-            <div class="row" id="f-row">
-                <!-- <div class="f-forecast-container">
+          <!-- <div class="f-forecast-container">
                     <p class="f-day" id="forecastDay">Tommorow</p>
                     <div class="f-weather-condition-img">
                         <p class="f-weather-condition" id="forecastWeatherCondition">Sunny</p>
@@ -76,95 +113,81 @@
                     </div>
                     <p id="forecastTemperature">24°C</p>
                 </div> -->
-            </div>
-
         </div>
+      </div>
     </div>
     <nav class="navigation-bar">
-        <a href="./index.html">
-            <div class="nav-item"><i class="fa-solid fa-house-chimney" id="homeNavIcon"></i></div>
-        </a>
-        <a href="./pages/bookmark.html">
-            <div class="nav-item"><i class="fa-solid fa-book-bookmark" id="bookmarkNavIcon"></i></div>
-        </a>
-        <a href="./pages/profile.html">
-            <div class="nav-item"><i class="fa-solid fa-user" id="profileNavIcon"></i></div>
-        </a>
+      <a href="./index.html">
+        <div class="nav-item"><i class="fa-solid fa-house-chimney" id="homeNavIcon"></i></div>
+      </a>
+      <a href="./pages/bookmark.html">
+        <div class="nav-item"><i class="fa-solid fa-book-bookmark" id="bookmarkNavIcon"></i></div>
+      </a>
+      <a href="./pages/profile.html">
+        <div class="nav-item"><i class="fa-solid fa-user" id="profileNavIcon"></i></div>
+      </a>
     </nav>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="w-100 text-center position-relative">
-                        <h5 class="modal-title d-inline-block text-black" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close position-absolute end-0 close-btn"
-                            data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                </div>
-                <div class="modal-body text-black">
-                    <div class="mb-3">
-                        <input type="text" class="form-control" id="userLoginEmail" placeholder="Enter the email">
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" class="form-control" id="userLoginPaswrd" placeholder="Enter the password">
-                    </div>
-                    <div class="mb-3">
-                        <p class="text-center">Not Registered? <a href="" data-bs-dismiss="modal" data-bs-toggle="modal"
-                                data-bs-target="#registerationModal" id="bookmarkIcon">Sign
-                                up</a></p>
-                    </div>
-                </div>
-                <div class="modal-footer text-black justify-content-center">
-                    <button type="button" class="btn btn-primary" onclick="loginUser()">Login</button>
-                </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="w-100 text-center position-relative">
+              <h5 class="modal-title d-inline-block text-black" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close position-absolute end-0 close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+          </div>
+          <div class="modal-body text-black">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="userLoginEmail" placeholder="Enter the email">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="userLoginPaswrd" placeholder="Enter the password">
+            </div>
+            <div class="mb-3">
+              <p class="text-center">Not Registered? <a href="" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerationModal" id="bookmarkIcon">Sign
+                  up</a></p>
+            </div>
+          </div>
+          <div class="modal-footer text-black justify-content-center">
+            <button type="button" class="btn btn-primary" onclick="loginUser()">Login</button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Modal for registeration -->
-
-    <div class="modal fade" id="registerationModal" tabindex="-1" aria-labelledby="registerationModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="w-100 text-center position-relative">
-                        <h5 class="modal-title d-inline-block text-black" id="registerationModalLabel">Register User
-                        </h5>
-                        <button type="button" class="btn-close position-absolute end-0 close-btn"
-                            data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                </div>
-                <div class="modal-body text-black">
-                    <div class="mb-3">
-                        <input type="text" class="form-control" id="userEmailRegister" placeholder="Enter the email">
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" class="form-control" id="passwordRegister" placeholder="Enter the password">
-                    </div>
-                    <p class="text-center">
-                        <a href="" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            id="bookmarkIcon">Login</a>
-                    </p>
-
-                </div>
-                <div class="modal-footer text-black justify-content-center">
-                    <button type="button" class="btn btn-primary">Register</button>
-                </div>
+    <div class="modal fade" id="registerationModal" tabindex="-1" aria-labelledby="registerationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="w-100 text-center position-relative">
+              <h5 class="modal-title d-inline-block text-black" id="registerationModalLabel">Register User
+              </h5>
+              <button type="button" class="btn-close position-absolute end-0 close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+          </div>
+          <div class="modal-body text-black">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="userEmailRegister" placeholder="Enter the email">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="passwordRegister" placeholder="Enter the password">
+            </div>
+            <p class="text-center">
+              <a href="" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bookmarkIcon">Login</a>
+            </p>
+          </div>
+          <div class="modal-footer text-black justify-content-center">
+            <button type="button" class="btn btn-primary">Register</button>
+          </div>
         </div>
+      </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./scripts/main.js" type="module"></script>
-</body>
-
+    <script src="../scripts/notifications.js"></script>
+  </body>
 </html>
