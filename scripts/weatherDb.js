@@ -59,21 +59,40 @@ class WeatherDB {
     });
   }
 
+  authStatus(callback) {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        callback(true); 
+      } else {
+        callback(false);
+      }
+    });
+  }
+
   setCurrentData(data) {
     this.currentData = data;
   }
 
   signUp(email, password) {
     return new Promise((resolve, reject) => {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return reject("Invalid email format");
+      }
+  
       createUserWithEmailAndPassword(this.auth, email, password)
         .then((userCredentials) => {
           resolve(userCredentials.user);
         })
         .catch((error) => {
+          alert(`Sign-up failed: ${error.message}`);
           reject(error.message);
         });
     });
   }
+  
 
   login(email, password) {
     return new Promise((resolve, reject) => {
