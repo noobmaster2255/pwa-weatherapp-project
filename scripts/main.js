@@ -54,6 +54,25 @@ document.addEventListener("click", function (event) {
   }
 });
 
+
+document.addEventListener("DOMContentLoaded", () => {
+  const authText = document.getElementById("authText");
+  const authIcon = document.getElementById("authIcon");
+
+  weatherDB.authStatus((isLoggedIn) => {
+    if (isLoggedIn) {
+      authText.textContent = "Logout";
+      authIcon.classList.add("fa-right-from-bracket");
+      authIcon.classList.remove("fa-sign-in-alt");
+    } else {
+      authText.textContent = "Login";
+      authIcon.classList.add("fa-sign-in-alt");
+      authIcon.classList.remove("fa-right-from-bracket");
+    }
+  });
+});
+
+
 function loadCurrentLocationWeather(action) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -151,30 +170,46 @@ weatherDB
     console.error("Error initializing Firebase:", error);
   });
 
+document.addEventListener("DOMContentLoaded", () => {
+  if (weatherDB.auth.currentUser) {
+    const createAccBtn = document.getElementById("createAccBtn");
+    createAccBtn.style.display = "none";
+  }
+});
+
+window.displayRegModal = function displayRegModal(){
+  const modalElement = new bootstrap.Modal(document.getElementById("registerationModal"));
+  modalElement.show();
+}
+
+window.createUser = function createUser(){
+  const userLoginEmail = document.getElementById("userEmailRegister").value.trim();
+  const userLoginPaswrd = document.getElementById("passwordRegister").value.trim();
+
+  if (userLoginEmail != "" && userLoginPaswrd != "") {
+    weatherDB
+      .signUp(userLoginEmail, userLoginPaswrd)
+      .then((user) => {
+        const modalElement = bootstrap.Modal.getInstance(document.getElementById("registerationModal"));
+        if (modalElement) {
+          modalElement.hide();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    console.log("Both fields are required");
+  }
+}
 window.handleAuthAction = function handleAuthAction() {
-  if (weatherDB.auth) {
+  if (weatherDB.auth.currentUser) {
     logoutUser();
   } else {
     const modalElement = new bootstrap.Modal(document.getElementById("exampleModal"));
     modalElement.show();
   }
 };
-
-function updateAuthButton() {
-  const authText = document.getElementById("authText");
-  const authIcon = document.getElementById("authIcon");
-
-  if (weatherDB.auth) {
-    authText.textContent = "Logout";
-    authIcon.classList.add("fa-right-from-bracket");
-    authIcon.classList.remove("fa-sign-in-alt");
-  } else {
-    authText.textContent = "Login";
-    authIcon.classList.add("fa-sign-in-alt");
-    authIcon.classList.remove("fa-right-from-bracket");
-  }
-}
-document.addEventListener("DOMContentLoaded", updateAuthButton);
 
 window.loginUser = function loginUser() {
   const userLoginEmail = document.getElementById("userLoginEmail").value.trim();

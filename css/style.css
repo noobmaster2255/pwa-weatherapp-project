@@ -324,6 +324,9 @@ body {
 }
 
 .logout-tile {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
     justify-content: center;
     cursor: pointer;
     border: 0.1em solid #193191;
@@ -335,6 +338,9 @@ body {
     cursor: pointer;
 }
 
+.logout-tile p{
+    font-size: 1.2em;
+}
 .notifications-tile {
   display: flex;
   flex-direction: column;

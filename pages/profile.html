@@ -40,6 +40,12 @@
                 <p id="authText"></p>
                 <i class="fa-solid fa-right-from-bracket user-detail" id="authIcon"></i>
             </div>
+
+            <div class="bookmark-tile logout-tile user-detail-tile" id="createAccBtn" onclick="displayRegModal()">
+              <p id="createAccText">Create New Account</p>
+              <i class="fa-solid fa-right-from-bracket user-detail" id="createAccIcon"></i>
+          </div>
+
         </div>
     </div>
     <nav class="navigation-bar">
@@ -85,6 +91,64 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="w-100 text-center position-relative">
+              <h5 class="modal-title d-inline-block text-black" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close position-absolute end-0 close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          </div>
+          <div class="modal-body text-black">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="userLoginEmail" placeholder="Enter the email">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="userLoginPaswrd" placeholder="Enter the password">
+            </div>
+            <div class="mb-3">
+              <p class="text-center">Not Registered? <a href="" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerationModal" id="bookmarkIcon">Sign
+                  up</a></p>
+            </div>
+          </div>
+          <div class="modal-footer text-black justify-content-center">
+            <button type="button" class="btn btn-primary" onclick="loginUser()">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for registeration -->
+    <div class="modal fade" id="registerationModal" tabindex="-1" aria-labelledby="registerationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="w-100 text-center position-relative">
+              <h5 class="modal-title d-inline-block text-black" id="registerationModalLabel">Register User
+              </h5>
+              <button type="button" class="btn-close position-absolute end-0 close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          </div>
+          <div class="modal-body text-black">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="userEmailRegister" placeholder="Enter the email">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="passwordRegister" placeholder="Enter the password">
+            </div>
+            <p class="text-center">
+              <a href="" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bookmarkIcon">Login</a>
+            </p>
+          </div>
+          <div class="modal-footer text-black justify-content-center">
+            <button type="button" class="btn btn-primary" onclick="createUser()">Register</button>
           </div>
         </div>
       </div>
