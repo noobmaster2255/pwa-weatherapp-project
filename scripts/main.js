@@ -177,12 +177,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-window.displayRegModal = function displayRegModal(){
+window.displayRegModal = function displayRegModal() {
   const modalElement = new bootstrap.Modal(document.getElementById("registerationModal"));
   modalElement.show();
 }
 
-window.createUser = function createUser(){
+window.createUser = function createUser() {
   const userLoginEmail = document.getElementById("userEmailRegister").value.trim();
   const userLoginPaswrd = document.getElementById("passwordRegister").value.trim();
 
@@ -237,7 +237,7 @@ function handleBookmarkData() {
     .checkUserLoggedIn()
     .then((user) => {
       const bookmarkIcon = document.getElementById("bookmarkButton");
-      
+
 
       // Add bookmark
       weatherDB
@@ -325,12 +325,19 @@ function populateHomeScreen(data) {
 }
 
 function getAllBookmarkedLocations() {
-  weatherDB.checkUserLoggedIn().then((user) => {
-    weatherDB.getAllBookmarkedLocations(user).then((locations) => {
-      displayBookmarkedLocation(locations);
-      refreshBookmarkedLocations(locations, user);
+  weatherIndexedDb.getAllBookmarkedLocations()
+    .then((data) => {
+      console.log('all bookmarks: ',data);
+    })
+    .catch((error) => {
+      console.log('get all bookmarks error:', error);
     });
-  });
+  // weatherDB.checkUserLoggedIn().then((user) => {
+  //   weatherDB.getAllBookmarkedLocations(user).then((locations) => {
+  //     displayBookmarkedLocation(locations);
+  //     refreshBookmarkedLocations(locations, user);
+  //   });
+  // });
 }
 
 function refreshBookmarkedLocations(locations, user) {
@@ -419,12 +426,12 @@ function addForecast(data) {
 
 function displayBookmarkedLocation(locations) {
   weatherIndexedDb.deleteAllBookmarkedLocations()
-  .then(() => {
-    weatherIndexedDb.addBookMarkedLocations(locations);
-  })
-  .catch((error) => {
-    console.log('delete all boookmark indexdb error:', error);
-  })
+    .then(() => {
+      weatherIndexedDb.addBookMarkedLocations(locations);
+    })
+    .catch((error) => {
+      console.log('delete all boookmark indexdb error:', error);
+    })
   const bList = document.getElementById("bookmark-list");
 
   for (let i = bList.children.length - 1; i >= 0; i--) {
@@ -494,12 +501,21 @@ function displayUserDetails(user) {
 }
 
 function logoutUser() {
+
   weatherDB.logout().then((message) => {
     const userEmail = document.getElementById("userEmail");
     userEmail.textContent = "";
     alert(message);
+    weatherIndexedDb.deleteAllBookmarkedLocations()
+      .then(() => {
+        console.log('cleared all bookmarks');
+      })
+      .catch((error) => {
+        console.log('delete all indexed db error', error);
+      });
+
   });
 }
-function addBookMarkedLocation(data) {}
+function addBookMarkedLocation(data) { }
 
-function removeBookMarkedLocation() {}
+function removeBookMarkedLocation() { }
