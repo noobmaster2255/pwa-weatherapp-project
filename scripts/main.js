@@ -54,11 +54,11 @@ document.addEventListener("click", function (event) {
   }
 });
 
-if(window.location.pathname === "/pages/profile.html"){
+if (window.location.pathname === "/pages/profile.html") {
   document.addEventListener("DOMContentLoaded", () => {
     const authText = document.getElementById("authText");
     const authIcon = document.getElementById("authIcon");
-  
+
     weatherDB.authStatus((isLoggedIn) => {
       if (isLoggedIn) {
         authText.textContent = "Logout";
@@ -110,8 +110,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //check whether it is bookmark page
   if (window.location.href.includes("bookmark")) {
-    getAllBookmarkedLocations();
-    return;
+
+    weatherIndexedDb.open()
+      .then(() => {
+        console.log('indexed db is availabe');
+        weatherIndexedDb.getAllBookmarkedLocations().then((data) => {
+          if (data) {
+            displayBookmarkedLocation(data)
+          }
+          console.log('All bookmarks data: ', data);
+          if (navigator.onLine) {
+            getAllBookmarkedLocations();
+          }
+        })
+          .catch((error) => {
+            console.log('Failed to get all bookmarks', error);
+            if (navigator.onLine) {
+              getAllBookmarkedLocations();
+            }
+          });
+      })
+      .catch((error) => {
+        console.log('Failed to open indexed db:', error);
+        if (navigator.onLine) {
+          getAllBookmarkedLocations();
+        }
+      });
+
   }
 
   if (window.location.href.includes("index")) {
@@ -325,19 +350,14 @@ function populateHomeScreen(data) {
 }
 
 function getAllBookmarkedLocations() {
-  weatherIndexedDb.getAllBookmarkedLocations()
-    .then((data) => {
-      console.log('all bookmarks: ',data);
-    })
-    .catch((error) => {
-      console.log('get all bookmarks error:', error);
+
+  weatherDB.checkUserLoggedIn().then((user) => {
+    weatherDB.getAllBookmarkedLocations(user).then((locations) => {
+      displayBookmarkedLocation(locations);
+      refreshBookmarkedLocations(locations, user);
     });
-  // weatherDB.checkUserLoggedIn().then((user) => {
-  //   weatherDB.getAllBookmarkedLocations(user).then((locations) => {
-  //     displayBookmarkedLocation(locations);
-  //     refreshBookmarkedLocations(locations, user);
-  //   });
-  // });
+  });
+
 }
 
 function refreshBookmarkedLocations(locations, user) {

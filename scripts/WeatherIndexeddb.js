@@ -54,7 +54,11 @@ class WeatherIndexedDb {
             }
 
             request.onsuccess = (event) => {
-                resolve(event.target.result);
+                if (event.target.result == undefined) {
+                    resolve(null)
+                } else {
+                    resolve(event.target.result);
+                }
             }
         });
     }
