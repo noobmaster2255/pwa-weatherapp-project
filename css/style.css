@@ -335,13 +335,18 @@ body {
     cursor: pointer;
 }
 
+.notifications-tile {
+  display: flex;
+  flex-direction: column;
+}
+
 
 /* for large screens  */
 
 @media (min-width: 768px) {
-    .container {
+    /* .container { */
         /* padding: 10%; */
-    }
+    /* } */
 
     .container>* {
         margin-bottom: 10% !important;

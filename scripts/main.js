@@ -9,6 +9,20 @@ weatherIndexedDb.open()
     console.log('Failed to open indexed db:', error);
   });
 
+// Registration of the Service Worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/service-worker.js", { scope: "/" })
+    .then((registration) => {
+      console.log("Register success: ", registration);
+    })
+    .catch((error) => {
+      console.log("Register failed: ", error);
+    });
+} else {
+  console.log("Service Workers are not supported!");
+}
+
 const searchContainer = document.getElementById("searchContainer");
 const searchBar = document.getElementById("searchBar");
 const currentLocationIcon = document.getElementById("currentLocationIcon");
@@ -36,29 +50,33 @@ document.addEventListener("click", function (event) {
   }
 
   if (event.target == currentLocationIcon) {
-    loadCurrentLocationWeather('click');
+    loadCurrentLocationWeather("click");
   }
 });
 
 function loadCurrentLocationWeather(action) {
-  navigator.geolocation.getCurrentPosition((position) => {
-    getHomeWeatherDetails(`${position.coords.latitude},${position.coords.longitude}`);
-  },
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      getHomeWeatherDetails(`${position.coords.latitude},${position.coords.longitude}`);
+    },
     (error) => {
-      console.error('Error getting location:', error.message);
+      console.error("Error getting location:", error.message);
       // Handle errors, e.g., permission denied, unavailable location services
       if (error.code === error.PERMISSION_DENIED) {
-        if (action == 'click') {
-          alert('Location access denied. Please enable location services in your browser settings.');
+        if (action == "click") {
+          alert(
+            "Location access denied. Please enable location services in your browser settings."
+          );
         } else {
-          getHomeWeatherDetails('London, Ontario');
+          getHomeWeatherDetails("London, Ontario");
         }
       } else if (error.code === error.POSITION_UNAVAILABLE) {
-        alert('Location information is unavailable.');
+        alert("Location information is unavailable.");
       } else if (error.code === error.TIMEOUT) {
-        alert('The request to get user location timed out.');
+        alert("The request to get user location timed out.");
       }
-    });
+    }
+  );
 }
 
 if ("geolocation" in navigator) {
@@ -132,6 +150,31 @@ weatherDB
   .catch((error) => {
     console.error("Error initializing Firebase:", error);
   });
+
+window.handleAuthAction = function handleAuthAction() {
+  if (weatherDB.auth) {
+    logoutUser();
+  } else {
+    const modalElement = new bootstrap.Modal(document.getElementById("exampleModal"));
+    modalElement.show();
+  }
+};
+
+function updateAuthButton() {
+  const authText = document.getElementById("authText");
+  const authIcon = document.getElementById("authIcon");
+
+  if (weatherDB.auth) {
+    authText.textContent = "Logout";
+    authIcon.classList.add("fa-right-from-bracket");
+    authIcon.classList.remove("fa-sign-in-alt");
+  } else {
+    authText.textContent = "Login";
+    authIcon.classList.add("fa-sign-in-alt");
+    authIcon.classList.remove("fa-right-from-bracket");
+  }
+}
+document.addEventListener("DOMContentLoaded", updateAuthButton);
 
 window.loginUser = function loginUser() {
   const userLoginEmail = document.getElementById("userLoginEmail").value.trim();
@@ -415,13 +458,13 @@ function displayUserDetails(user) {
   userEmail.textContent = user.email;
 }
 
-window.logoutUser = function logoutUser() {
+function logoutUser() {
   weatherDB.logout().then((message) => {
     const userEmail = document.getElementById("userEmail");
     userEmail.textContent = "";
     alert(message);
   });
-};
-function addBookMarkedLocation(data) { }
+}
+function addBookMarkedLocation(data) {}
 
-function removeBookMarkedLocation() { }
+function removeBookMarkedLocation() {}
