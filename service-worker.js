@@ -1,5 +1,5 @@
 // Variable to store and update the cache name
-const cacheName = 'cacheAssets-v1';
+const cacheName = 'cacheAssets-v2';
 
 /*
  *
@@ -21,6 +21,7 @@ self.addEventListener('install', (event) => {
           '/css/style.css',
           '/scripts/main.js',
           '/scripts/weatherDb.js',
+          '/scripts/weatherIndexedDb.js',
           '/scripts/notifications.js',
           '/pages/bookmark.html',
           '/pages/profile.html',

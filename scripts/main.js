@@ -1,5 +1,5 @@
-import WeatherDB from "../scripts/weatherDb.js";
-import weatherIndexedDb from "./WeatherIndexeddb.js";
+import weatherDB from "./weatherDb.js";
+import weatherIndexedDb from "./weatherIndexedDb.js";
 
 weatherIndexedDb.open()
   .then(() => {
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 ///////////
 
-const weatherDB = new WeatherDB();
+
 weatherDB
   .open()
   .then(() => {
