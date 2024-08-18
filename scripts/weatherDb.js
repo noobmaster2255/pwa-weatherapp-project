@@ -208,4 +208,4 @@ class WeatherDB {
   }
 }
 
-export default WeatherDB;
+export default WeatherDB();

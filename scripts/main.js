@@ -1,4 +1,13 @@
 import WeatherDB from "../scripts/weatherDb.js";
+import weatherIndexedDb from "./WeatherIndexeddb.js";
+
+weatherIndexedDb.open()
+  .then(() => {
+    console.log('indexed db is availabe');
+  })
+  .catch((error) => {
+    console.log('Failed to open indexed db:', error);
+  });
 
 // Registration of the Service Worker
 if ("serviceWorker" in navigator) {
@@ -110,12 +119,36 @@ document.addEventListener("DOMContentLoaded", function () {
       handleBookmarkData();
     });
 
-    if (navigator.geolocation) {
-      loadCurrentLocationWeather("pageLoad");
-    } else {
-      getHomeWeatherDetails("London, Ontario");
-    }
-    return;
+
+    weatherIndexedDb.open()
+      .then(() => {
+        console.log('indexed db is availabe');
+        weatherIndexedDb.getHomeLocation()
+          .then((data) => {
+            console.log('home loc data:', data);
+            if (data) {
+              weatherDB.setCurrentData(data);
+              populateHomeScreen(data);
+              getHomeWeatherDetails(`${data.location.lat},${data.location.lon}`);
+            } else {
+              if (navigator.geolocation) {
+                loadCurrentLocationWeather("pageLoad");
+              } else {
+                getHomeWeatherDetails("London, Ontario");
+              }
+            }
+          })
+          .catch((error) => {
+            console.log('Failed to get home location: ', error);
+          });
+      })
+      .catch((error) => {
+        console.log('Failed to open indexed db:', error);
+      });
+
+
+
+
   }
 
   // check whether it is user profile page
@@ -204,6 +237,7 @@ function handleBookmarkData() {
     .checkUserLoggedIn()
     .then((user) => {
       const bookmarkIcon = document.getElementById("bookmarkButton");
+      
 
       // Add bookmark
       weatherDB
@@ -235,6 +269,7 @@ function getHomeWeatherDetails(query) {
   fetch(apiUrlStr)
     .then((response) => response.json())
     .then((data) => {
+      weatherIndexedDb.setHomeLocation(data)
       weatherDB.setCurrentData(data);
       weatherDB.checkUserLoggedIn().then((user) => {
         if (user) {
@@ -256,33 +291,37 @@ function getHomeWeatherDetails(query) {
     })
     .then((data) => {
       // Process the fetched data
-      const currentLocationName = document.getElementById("locationName");
-      const currentLocationWeatherImage = document.getElementById("weatherImage");
-      const currentLocationTemp = document.getElementById("temperature");
-      const currentLocationWeatherCondition = document.getElementById("weatherCondition");
-      const currentLocationFeelsLike = document.getElementById("feelsLike");
-      const currentLocationHumidity = document.getElementById("humidity");
-      const currentLocationwind = document.getElementById("wind");
-      const currentLocationUv = document.getElementById("uv");
-
-      currentLocationName.textContent = `${data.location.name}, ${data.location.region}`;
-      let imageUrl = `${data.current.condition.icon}`;
-
-      currentLocationWeatherImage.src = imageUrl.replace("64x64", "128x128");
-      currentLocationTemp.textContent = `${data.current.temp_c}℃`;
-      currentLocationWeatherCondition.textContent = `${data.current.condition.text}`;
-      currentLocationFeelsLike.textContent = `${data.current.feelslike_c}℃`;
-      currentLocationHumidity.textContent = `${data.current.humidity}%`;
-      currentLocationwind.textContent = `${data.current.wind_mph} m/h`;
-      currentLocationUv.textContent = `${data.current.uv}`;
-
-      addForecast(data);
+      populateHomeScreen(data);
       return data;
     })
     .catch((error) => {
       // Handle errors
       console.log("weather api error: ", error);
     });
+}
+
+function populateHomeScreen(data) {
+  const currentLocationName = document.getElementById("locationName");
+  const currentLocationWeatherImage = document.getElementById("weatherImage");
+  const currentLocationTemp = document.getElementById("temperature");
+  const currentLocationWeatherCondition = document.getElementById("weatherCondition");
+  const currentLocationFeelsLike = document.getElementById("feelsLike");
+  const currentLocationHumidity = document.getElementById("humidity");
+  const currentLocationwind = document.getElementById("wind");
+  const currentLocationUv = document.getElementById("uv");
+
+  currentLocationName.textContent = `${data.location.name}, ${data.location.region}`;
+  let imageUrl = `${data.current.condition.icon}`;
+
+  currentLocationWeatherImage.src = imageUrl.replace("64x64", "128x128");
+  currentLocationTemp.textContent = `${data.current.temp_c}℃`;
+  currentLocationWeatherCondition.textContent = `${data.current.condition.text}`;
+  currentLocationFeelsLike.textContent = `${data.current.feelslike_c}℃`;
+  currentLocationHumidity.textContent = `${data.current.humidity}%`;
+  currentLocationwind.textContent = `${data.current.wind_mph} m/h`;
+  currentLocationUv.textContent = `${data.current.uv}`;
+
+  addForecast(data);
 }
 
 function getAllBookmarkedLocations() {
@@ -379,6 +418,13 @@ function addForecast(data) {
 }
 
 function displayBookmarkedLocation(locations) {
+  weatherIndexedDb.deleteAllBookmarkedLocations()
+  .then(() => {
+    weatherIndexedDb.addBookMarkedLocations(locations);
+  })
+  .catch((error) => {
+    console.log('delete all boookmark indexdb error:', error);
+  })
   const bList = document.getElementById("bookmark-list");
 
   for (let i = bList.children.length - 1; i >= 0; i--) {
