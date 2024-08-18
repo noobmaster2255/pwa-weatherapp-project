@@ -54,24 +54,24 @@ document.addEventListener("click", function (event) {
   }
 });
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  const authText = document.getElementById("authText");
-  const authIcon = document.getElementById("authIcon");
-
-  weatherDB.authStatus((isLoggedIn) => {
-    if (isLoggedIn) {
-      authText.textContent = "Logout";
-      authIcon.classList.add("fa-right-from-bracket");
-      authIcon.classList.remove("fa-sign-in-alt");
-    } else {
-      authText.textContent = "Login";
-      authIcon.classList.add("fa-sign-in-alt");
-      authIcon.classList.remove("fa-right-from-bracket");
-    }
+if(window.location.pathname === "/pages/profile.html"){
+  document.addEventListener("DOMContentLoaded", () => {
+    const authText = document.getElementById("authText");
+    const authIcon = document.getElementById("authIcon");
+  
+    weatherDB.authStatus((isLoggedIn) => {
+      if (isLoggedIn) {
+        authText.textContent = "Logout";
+        authIcon.classList.add("fa-right-from-bracket");
+        authIcon.classList.remove("fa-sign-in-alt");
+      } else {
+        authText.textContent = "Login";
+        authIcon.classList.add("fa-sign-in-alt");
+        authIcon.classList.remove("fa-right-from-bracket");
+      }
+    });
   });
-});
-
+}
 
 function loadCurrentLocationWeather(action) {
   navigator.geolocation.getCurrentPosition(

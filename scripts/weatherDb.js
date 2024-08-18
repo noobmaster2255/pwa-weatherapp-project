@@ -161,14 +161,17 @@ class WeatherDB {
     return new Promise(async (resolve, reject) => {
       const querySnapshot = await getDocs(
         collection(this.db, "bookmarks"),
-        where("userId", "==", `${user.uid}`)
+        where("userId", "==", this.auth.currentUser.uid)
       );
       let locations = {};
       querySnapshot.forEach((doc) => {
+
+        if(doc.data().userId == this.auth.currentUser.uid){
+          console.log(doc.id, " => ", doc.data());
+          const location = doc.data();
+          locations[`${location.location.name}, ${location.location.region}`] = location;
+        }
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        const location = doc.data();
-        locations[`${location.location.name}, ${location.location.region}`] = location;
       });
       resolve(locations);
     });
@@ -208,4 +211,4 @@ class WeatherDB {
   }
 }
 
-export default WeatherDB();
+export default new WeatherDB();

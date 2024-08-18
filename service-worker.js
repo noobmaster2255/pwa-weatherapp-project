@@ -1,5 +1,5 @@
 // Variable to store and update the cache name
-const cacheName = 'cacheAssets-v2';
+const cacheName = 'cacheAssets-v10';
 
 /*
  *
